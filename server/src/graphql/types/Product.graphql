@@ -1,0 +1,39 @@
+type Size {
+    width: Int
+    height: Int
+}
+
+type Product {
+    id: ID!
+    imageUrl: String
+    name: String!
+    count: Int
+    size: Size
+    weight: String
+    comments: [Comment]!
+}
+
+type Query {
+    products(query: String!): [Product]!
+    product(id: ID!): Product!
+    countProducts: Int!
+}
+
+type Mutation {
+    addProduct(input: ProductInput!): Product!
+	upsertProduct(id: ID!, input: ProductInput!): Product!
+	deleteProduct(id: ID!): Product!
+}
+
+input ProductInput {
+    imageUrl: String
+    name: String
+    count: Int
+    size: SizeInput
+    weight: String
+}
+
+input SizeInput {
+    width: Int
+    height: Int
+}

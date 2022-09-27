@@ -1,0 +1,19 @@
+type Comment {
+	id: ID!
+	description: String
+	date: String
+}
+
+type Query {
+	countComments: Int!
+}
+
+type Mutation {
+	addComment(productId: ID!, input: CommentInput!): Comment!
+	deleteComment(id: ID!): Comment!
+}
+
+input CommentInput {
+	description: String
+	date: String
+}
