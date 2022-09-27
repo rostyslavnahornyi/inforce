@@ -1,4 +1,4 @@
-import { AnyAction } from "redux";
+import { Action, AnyAction, Dispatch } from "redux";
 import { ThunkAction, ThunkDispatch } from "redux-thunk";
 import { IProduct } from "../../interfaces/IProduct";
 import { gql } from "../../utils/gql";
@@ -8,14 +8,17 @@ import {
     getProductsPending,
     getProductsSuccess,
 } from "../actions/product";
-import { AppState, store } from "../store";
+import { RootState } from "../store";
 
-export const actionGetProducts = () => (
-    dispatch: ThunkDispatch<IProduct, void, AnyAction>
-): ThunkAction<void, AppState, unknown, AnyAction> => {
+export const actionGetProducts = (): ThunkAction<void, RootState, null, AnyAction> => async (
+    dispatch
+) => {
     dispatch(getProductsPending());
 
-    gql(getProducts, { query: "[{}]" })
-        .then(products => dispatch(getProductsSuccess(products)))
-        .catch(error => dispatch(getProductsFailed(error)));
+    try {
+		const products = await gql(getProducts, { query: "[{}]" });
+		return dispatch(getProductsSuccess(products));
+	} catch (error: unknown) {
+		return dispatch(getProductsFailed(String(error)));
+	}
 };

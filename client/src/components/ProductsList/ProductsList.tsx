@@ -1,18 +1,17 @@
 import React, { useEffect, useState } from "react";
 import "./style.scoped.scss";
-import { useDispatch } from "react-redux";
 import { actionGetProducts } from "../../redux/creators/product";
+import { useAppDispatch } from "../../hooks";
+
 
 const ProductsList: React.FC = () => {
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
 
     useEffect(() => {
-        dispatch(actionGetProducts())
+        dispatch(actionGetProducts());
     }, []);
 
-    return <div className="product-list">
-
-    </div>;
+    return <div className="product-list" />;
 };
 
 export default ProductsList;

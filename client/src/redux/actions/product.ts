@@ -1,26 +1,23 @@
 import { Statuses } from "../../enums/Statuses";
 import { IAction } from "../../interfaces/IAction";
 import { IProduct } from "../../interfaces/IProduct";
-import types from "../types/products";
+import {GET_PRODUCTS_FAILED,GET_PRODUCTS_SUCCESS,GET_PRODUCTS_PENDING} from "../types/products";
 
-// export const addProduct = (product: IProduct) => ({
-//     type: "ADD_PRODUCT",
-//     payload: product,
-// });
-
-export const getProductsPending = (): IAction => ({
-    type: types.getProductsPending,
+export const getProductsPending = (): IAction<IProduct> => ({
+    type: GET_PRODUCTS_PENDING,
     status: Statuses.PENDING,
 });
 
-export const getProductsSuccess = (products: IProduct[]): IAction => ({
-    type: types.getProductsSuccess,
+export const getProductsSuccess = (products: IProduct[]): IAction<IProduct> => ({
+    type: GET_PRODUCTS_SUCCESS,
     status: Statuses.SUCCESS,
     payload: products,
 });
 
-export const getProductsFailed = (error: string): IAction => ({
-    type: types.getProductsFailed,
+export const getProductsFailed = (error: string): IAction<IProduct> => ({
+    type: GET_PRODUCTS_FAILED,
     error,
     status: Statuses.FAIL,
 });
+
+
